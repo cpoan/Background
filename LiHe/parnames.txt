@@ -1,0 +1,130 @@
+N_combinedFit_pars from calculation :96
+N_combinedFit_pars from program : 96
+Here's combined fit parameter names.---------------------------------------
+No.[0] N_dc
+No.[1] R_u_high
+No.[2] N_li9he8_high
+No.[3] N_b12_high
+No.[4] N_n12_high
+No.[5] R_u_mid
+No.[6] N_li9he8_mid
+No.[7] N_b12_mid
+No.[8] N_n12_mid
+No.[9] R_u_low
+No.[10] N_li9he8_low
+No.[11] N_b12_low
+No.[12] N_n12_low
+No.[13] Lifetime_li9he8
+No.[14] Lifetime_b12
+No.[15] Lifetime_n12
+
+No.[16] Epsilon_dc_prompt_0
+No.[17] Epsilon_dc_prompt_1
+No.[18] Epsilon_dc_prompt_2
+No.[19] Epsilon_dc_prompt_3
+No.[20] Epsilon_dc_prompt_4
+
+No.[21] Epsilon_dc_delay_0
+No.[22] Epsilon_dc_delay_1
+No.[23] Epsilon_dc_delay_2
+No.[24] Epsilon_dc_delay_3
+No.[25] Epsilon_dc_delay_4
+
+No.[26] Epsilon_dc_time_0
+No.[27] Epsilon_dc_time_1
+No.[28] Epsilon_dc_time_2
+No.[29] Epsilon_dc_time_3
+No.[30] Epsilon_dc_time_4
+
+No.[31] Epsilon_dc_distance_0
+No.[32] Epsilon_dc_distance_1
+No.[33] Epsilon_dc_distance_2
+No.[34] Epsilon_dc_distance_3
+No.[35] Epsilon_dc_distance_4
+
+No.[36] Epsilon_li9he8_prompt_0
+No.[37] Epsilon_li9he8_prompt_1
+No.[38] Epsilon_li9he8_prompt_2
+No.[39] Epsilon_li9he8_prompt_3
+No.[40] Epsilon_li9he8_prompt_4
+
+No.[41] Epsilon_li9he8_delay_0
+No.[42] Epsilon_li9he8_delay_1
+No.[43] Epsilon_li9he8_delay_2
+No.[44] Epsilon_li9he8_delay_3
+No.[45] Epsilon_li9he8_delay_4
+
+No.[46] Epsilon_li9he8_time_0
+No.[47] Epsilon_li9he8_time_1
+No.[48] Epsilon_li9he8_time_2
+No.[49] Epsilon_li9he8_time_3
+No.[50] Epsilon_li9he8_time_4
+
+No.[51] Epsilon_li9he8_distance_0
+No.[52] Epsilon_li9he8_distance_1
+No.[53] Epsilon_li9he8_distance_2
+No.[54] Epsilon_li9he8_distance_3
+No.[55] Epsilon_li9he8_distance_4
+
+No.[56] Epsilon_b12_prompt_0
+No.[57] Epsilon_b12_prompt_1
+No.[58] Epsilon_b12_prompt_2
+No.[59] Epsilon_b12_prompt_3
+No.[60] Epsilon_b12_prompt_4
+
+No.[61] Epsilon_b12_delay_0
+No.[62] Epsilon_b12_delay_1
+No.[63] Epsilon_b12_delay_2
+No.[64] Epsilon_b12_delay_3
+No.[65] Epsilon_b12_delay_4
+
+No.[66] Epsilon_b12_time_0
+No.[67] Epsilon_b12_time_1
+No.[68] Epsilon_b12_time_2
+No.[69] Epsilon_b12_time_3
+No.[70] Epsilon_b12_time_4
+
+No.[71] Epsilon_b12_distance_0
+No.[72] Epsilon_b12_distance_1
+No.[73] Epsilon_b12_distance_2
+No.[74] Epsilon_b12_distance_3
+No.[75] Epsilon_b12_distance_4
+
+No.[76] Epsilon_n12_prompt_0
+No.[77] Epsilon_n12_prompt_1
+No.[78] Epsilon_n12_prompt_2
+No.[79] Epsilon_n12_prompt_3
+No.[80] Epsilon_n12_prompt_4
+
+No.[81] Epsilon_n12_delay_0
+No.[82] Epsilon_n12_delay_1
+No.[83] Epsilon_n12_delay_2
+No.[84] Epsilon_n12_delay_3
+No.[85] Epsilon_n12_delay_4
+
+No.[86] Epsilon_n12_time_0
+No.[87] Epsilon_n12_time_1
+No.[88] Epsilon_n12_time_2
+No.[89] Epsilon_n12_time_3
+No.[90] Epsilon_n12_time_4
+
+No.[91] Epsilon_n12_distance_0
+No.[92] Epsilon_n12_distance_1
+No.[93] Epsilon_n12_distance_2
+No.[94] Epsilon_n12_distance_3
+No.[95] Epsilon_n12_distance_4
+
+
+End---------------------------------------
+Here's TF1 parameter names.---------------------------------------
+No.[0] Ru
+No.[1] N_dc
+No.[2] N_li9he8
+No.[3] N_b12
+No.[4] N_n12
+No.[5] Lifetime_li9he8
+No.[6] Lifetime_b12
+No.[7] Lifetime_n12
+No.[8] scaleFactor
+
+End---------------------------------------
