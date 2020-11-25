@@ -29,6 +29,8 @@ using std::fixed;
 using std::endl;
 using std::vector;
 using std::ofstream;
+using std::string;
+string rootFileName = "./p17b.root";
 /*
     `   #N_range:  
             Number of muon energy ranges.
@@ -662,7 +664,7 @@ void do_fit(int site, double results[N_sites][N_combinedFit_pars][2], double dai
         strcat(_f_tmp, pdf_source[source]);
     }
     sprintf(_f_sum,"[0] * ( %s )", _f_tmp);
-    TFile* histogramRootFile = new TFile("./p17b.root","READ");
+    TFile* histogramRootFile = new TFile(rootFileName.c_str(),"READ");
     for(int range = 0;range<N_range;range++)
         for(int sliceType = 0;sliceType<N_sliceTypes;sliceType++)
             for(int slice = 0;slice<N_slices;slice++){
