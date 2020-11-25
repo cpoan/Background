@@ -46,5 +46,5 @@ This is defined in Makefile, so what important is to make sure the name of execu
 for example that I will define the executable file name for joint fit of N_slices = 5 as **unified5** 
 ```makefile
 all: main.cc
-g++ -g -o unified5 main.cc -lEG `root-config --cflags` `root-config --libs` -lTreePlayer
+    g++ -g -o unified5 main.cc -lEG `root-config --cflags` `root-config --libs` -lTreePlayer
 ```
