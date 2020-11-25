@@ -88,13 +88,13 @@ const double scalefactor = 10.;
 const double fitMin = 15.;
 const double fitMax = 5000;
 const int epsBegin = N_range+1+N_range*(N_sources-1)+N_sources-1-1; 
-//double livetime[9] ={0,1580.34,1833.13,1907.23,2190.06,2189.62,2189.29,2005.62,1744.43};
-double livetime[9] ={0,1277.49,1431.6,1489.37,1710.97,1710.58,1710.3,1526.58,1327.46};
-//double livetime[9] ={0,1277.49,1833.13,1907.23,2190.06,2189.62,2189.29,2005.62,1744.43};
+//double livetime[8] ={1580.34,1833.13,1907.23,2190.06,2189.62,2189.29,2005.62,1744.43};
+double livetime[8] ={1277.49,1431.6,1489.37,1710.97,1710.58,1710.3,1526.58,1327.46};
+//double livetime[8] ={0,1277.49,1833.13,1907.23,2190.06,2189.62,2189.29,2005.62,1744.43};
 double livetime_site[N_sites] = {
-        livetime[1]+livetime[2],
-        livetime[3]+livetime[8],
-        livetime[4]+livetime[5]+livetime[6]+livetime[7]
+        livetime[0]+livetime[1],
+        livetime[2]+livetime[7],
+        livetime[3]+livetime[4]+livetime[5]+livetime[6]
     };
 /*
         double scale            = par[0];
