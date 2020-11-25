@@ -19,6 +19,17 @@ As a summary,
    IBD quantity = 0(Ep)  
    Index of slice = 0*_  
    (Numbers are following the order in format.)
++ Program should be able to access all the histograms in a single rootfile.
    
 For people who want to do a joint fit in configuration of N_slices = 5,  
 please do remenber to prepare those 3 x 4 x 5 histograms and follow the format above.
+
+## Modify some important parameters in main.cc
+
++ First is making sure that what configuration of N_slices,  
+if you prepared histograms for N_slices = 5,  
+please check the `int N_slices = 5` in main.cc.
+
++ Second is to check the `int livetime[8]`,  
+which will be used to transfer livetime to daily rates,  
+*ps.The livetime here should consider the effect of muon veto efficiency.*
