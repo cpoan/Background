@@ -20,6 +20,7 @@ As a summary,
    Index of slice = 0*_  
    (Numbers are following the order in format.)
 + Program should be able to access all the histograms in a single rootfile.
++ Change the parameter of file name in main.cc `string rootFileName = "example.root"`, which contains all histograms.
    
 For people who want to do a joint fit in configuration of N_slices = 5,  
 please do remenber to prepare those 3 x 4 x 5 histograms and follow the format above.
@@ -33,3 +34,17 @@ please check the `int N_slices = 5` in main.cc.
 + Second is to check the `int livetime[8]`,  
 which will be used to transfer livetime to daily rates,  
 *ps.The livetime here should consider the effect of muon veto efficiency.*
+
+## Modify the Makefile
+
+You can just type the comment below to generate execution file: 
+```bash
+make
+```
+
+This is defined in Makefile, so what important is to make sure the name of executable file is what you want,
+for example that I will define the executable file name for joint fit of N_slices = 5 as **unified5** 
+```makefile
+all: main.cc
+g++ -g -o unified5 main.cc -lEG `root-config --cflags` `root-config --libs` -lTreePlayer
+```
