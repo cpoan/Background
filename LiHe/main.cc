@@ -78,7 +78,7 @@ const int N_range = 3;
 const int N_sources = 2;
 const int N_sources_max = 4;
 const int N_sliceTypes = 4;
-const int N_slices = 4;
+const int N_slices = 5;
 const int N_combinedFit_pars = N_range+1+N_range*(N_sources-1)+N_sources-1+N_sources*N_sliceTypes*N_slices;
 const int N_TF1_pars = 1+1+N_sources+(N_sources-1);
 const int N_sites = 3;
@@ -662,7 +662,7 @@ void do_fit(int site, double results[N_sites][N_combinedFit_pars][2], double dai
         strcat(_f_tmp, pdf_source[source]);
     }
     sprintf(_f_sum,"[0] * ( %s )", _f_tmp);
-    TFile* histogramRootFile = new TFile("./p17b.delayed3region.root","READ");
+    TFile* histogramRootFile = new TFile("./p17b.root","READ");
     for(int range = 0;range<N_range;range++)
         for(int sliceType = 0;sliceType<N_sliceTypes;sliceType++)
             for(int slice = 0;slice<N_slices;slice++){
