@@ -29,7 +29,51 @@ using std::fixed;
 using std::endl;
 using std::vector;
 using std::ofstream;
-
+/*
+    `   #N_range:  
+            Number of muon energy ranges.
+        
+        #N_source: 
+            Number of isotopes.
+            ex: 1. Muon uncorrelated; 2. 9Li&8He
+        
+        #N_source_max: 
+            We can add N12 and B12 to be the potential bkg contribution.
+        
+        #N_sliceTypes:
+            Number of quantity we apply slicing. 
+            If no special requirement, it would be Ep, Ed, dT, dist.
+        
+        #N_slices:
+            The number of slices we apply to quantity.
+            ex: N_slices = 4, Ep will be divided to 4 categories.
+            So as the other quantities Ed, dT, dist.
+        
+        #N_combinedFit_pars:
+            Number of free parameters in this combinedFit. Not yet consider we will fix some or not.
+        
+        #N_TF1_pars:
+            Each single histogram in this joint fit will be given a TF1, the number of parameters that each TF1 needs is N_TF1_pars.
+        
+        #combinedFit_parNames[]:
+            Array that contain the names of parameters in jointFit.
+        
+        #TF1_parNames[];
+            Array that contain the names of parameters in each TF1.
+        
+        #scaleFactor:
+            Scale the normalize factor due to effect of bin size.
+        
+        #fitMin, fitMax:
+            Define the range of fitting. unit is "ms".
+        
+        #EpsBegin:
+            A index that tell program where is the parameter epsilon begin.
+        
+        #livetime[]:
+            Array that contain livetime information (Consider the muon veto efficiency already.),
+            which will be used to calculate daily rates.
+*/
 const int N_range = 3;
 const int N_sources = 2;
 const int N_sources_max = 4;
@@ -52,22 +96,64 @@ double livetime_site[N_sites] = {
         livetime[3]+livetime[8],
         livetime[4]+livetime[5]+livetime[6]+livetime[7]
     };
-
-    //double scale = par[0];
-    //double Ru = par[1];
-    //double N_dc = par[2];
-    //double N_li9he8 = par[3];
-    //double Lifetime_li9he8 = par[4];
-    //double N_b12 = par[5];
-    //double Lifetime_b12 = par[6];
-    //double N_n12 = par[7];
-    //double Lifetime_n12 = par[8];
+/*
+        double scale            = par[0];
+        double Ru               = par[1];
+        double N_dc             = par[2];
+        double N_li9he8         = par[3];
+        double Lifetime_li9he8  = par[4];
+        -------Ususlly the parameters we needs only up to here-------
+        double N_b12            = par[5];
+        double Lifetime_b12     = par[6];
+        double N_n12            = par[7];
+        double Lifetime_n12     = par[8];
+*/
 const char *pdf_source[4] = {
 	"[2] * [1] * exp(-[1] * x )",
 	"[3] * ([1] + 1 / [4]) * exp(-([1] + 1 / [4]) * x )",
 	"[5] * ([1] + 1 / [6]) * exp(-([1] + 1 / [6]) * x )",
 	"[7] * ([1] + 1 / [8]) * exp(-([1] + 1 / [8]) * x )",
 };
+
+/*
+        -------Global varaiable-------
+        #par[]:
+            Array of parameters that really been fitted,
+            each site will use this global variable in order.
+
+        #TF1_pars[N_range][N_sliceTypes][N_slices][N_TF1_pars]:
+            Array of TF1 parameters,
+            it's N_range x N_sliceTypes x N_slices' N_TF1_pars dimension array,
+            each site will use this global variable in order.
+
+        #array_TF1[N_range][N_sliceTypes][N_slices]:
+            Array of TF1, 
+            each site will use this global variable in order.
+
+        #array_h[N_range][N_sliceTypes][N_slices]:
+            Array of histograms,
+            we will access all histograms from one rootfile.
+
+        During the fitting,
+        par[] is the fitting target,
+        but we will parametrize them to each each TF1_pars,
+        then it's more convinent to do the calculation of FCN in unit of histogram,
+        and it's more convinent to do some visualization also.
+        For the details of parametrization please access the Docdb (...).
+
+        #hist_content and hist_center:
+            Array of vector,
+            just transfer the information of histograms to vector.
+
+        #array_gradient[N_range][N_sliceTypes][N_slices][N_TF1_pars]:
+            Save the likelihood partial derivative of parameters in TF1_pars,
+            the relation of these parametetrs and true fitted parameters can
+            further be used to calculate likelihood partial derivative of true fitted parameters. 
+        #texfile:
+            Output some important results in form of latex table.
+
+        The rest of global parameters are less important and not essential rules in this program.
+*/
 double par[N_combinedFit_pars];
 double TF1_pars[N_range][N_sliceTypes][N_slices][N_TF1_pars];
 TF1 *array_TF1[N_range][N_sliceTypes][N_slices];
@@ -79,6 +165,66 @@ ROOT::Math::WrappedMultiTF1 *wf[N_range][N_sliceTypes][N_slices];
 double array_gradient[N_range][N_sliceTypes][N_slices][N_TF1_pars];
 ofstream texfile;
 
+/*
+        -------Function illustration-------
+        #void fill_combinedFit_parNames(const char** array_names);
+            Fill the fit parameter names to array_names.
+
+        #void showCombinedFitParNames(const char** array_names);
+            Show the fit parameter names.
+
+        #void fill_TF1_parNames(const char** array_names);
+            Fill the par names of TF1 (All same).
+
+        #void showTF1ParNames(const char** array_names);
+            Show the par names of TF1.
+
+        #void parTran(const double* par, double tf1_pars[N_range][N_sliceTypes][N_slices][N_TF1_pars]);
+            Parametrize the true fitted parameters to TF1_pars.
+
+        #double function_single(double x, double* par);
+            double* par points to the array of certain set of TF1 pars,
+            using these parameters and specified the "x",
+            then we will have the expected value in histograms.
+        
+        #void function_gradient_single(double x, double *par, double *grad);
+            double* par points to the array of certain set of TF1 pars,
+            using these parameters and specified the "x",
+            then they will change the (double *) grad,
+            "ith" index match partial derivative of "ith" parameter of single TF1 fit function.
+
+        #double likelihood_single(vector<double> n, vector<double> x, double *par);
+            'single' means it's the likelihood of one histogram,
+            therefore the argument is the vector contain bin center, bin content,
+            and of course the (double *) par, true fitted parameters.
+
+        #double likelihood(const double *par);
+            Real likelihood function in this adjoint fit,
+            equivelant to summation of all likelihood_single.
+        
+        #double likelihood_derivative(const double *par, int coord);
+            Funciton be given true fitted parameters and a index of parameter "coord",
+            then function will return the partial derivative of likelihood with respect to this parameter[coord].
+            Joint fit results obtain by using this function as the core function of searching minimum it way more stable than using likelihood(const double* par).
+            
+        #void do_fit(int site, double results[N_sites][N_combinedFit_pars][2], double daily_rates[N_sites][2], const char* preDir);
+            Tell do fit function the site you want to perform combined fit,
+            it will fill the fit result (parameters/uncertainties) to "double results[N_sites][N_combinedFit_pars][2]" the[2] in array is for fitted mean/uncertainty for parameter.
+            Also the daily rates results will be contained by double daily_rates[N_sites][2].
+            Somes plots will be save in ./Slices/"preDir"/ and ./FitPlot/"preDir"/.
+
+        #void initialize_minimizer(int site, ROOT::Math::Minimizer *mini);
+            Set initial value of those fitted parameters and some configuration to minimizer.
+
+        #double chi2(const double *par);
+            Calculate the chi2 to judge goodness of fit.
+
+        #void plotSlices(int site, ROOT::Math::Minimizer* mini, const char* preDir);
+        #void plotFit(int site, ROOT::Math::Minimizer* mini, const char* preDir);
+            These function are called by do_fit(),
+            plots will be save in ./Slices/"preDir"/ and ./FitPlot/"preDir"/.
+        
+*/
 void fill_combinedFit_parNames(const char** array_names);
 void showCombinedFitParNames(const char** array_names);
 void fill_TF1_parNames(const char** array_names);
