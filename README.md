@@ -48,3 +48,9 @@ for example that I will define the executable file name for joint fit of N_slice
 all: main.cc
     g++ -g -o unified5 main.cc -lEG `root-config --cflags` `root-config --libs` -lTreePlayer
 ```
+
+## Run the joint fit
++ Format of command:  
+    ./unified5 _*"directory name"*_ 5  
+    The directory name will be used in ./FitPlot/_*directory name*_/, then the final option _*5*_ will further specify the sub-directory, for saving plots, _*s_5*_ which corresponding to the number of slices.
+    As summary, plots will be saved in ./FitPlot/_*directory name/s_5/*_, and ./Slices/_*directory name/s_5/*_.
