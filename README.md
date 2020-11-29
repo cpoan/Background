@@ -51,7 +51,7 @@ all: main.cc
 
 ## Run the joint fit
 + Format of command:
- ```bash
+```bash
     ./unified5 _*"directory name"*_ 5
 ```
     The directory name will be used in ./FitPlot/_*directory name*_/, then the final option _*5*_ will further specify the sub-directory, for saving plots, _*s_5*_ which corresponding to the number of slices.
