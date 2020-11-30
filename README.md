@@ -51,7 +51,7 @@ all: main.cc
 
 ## Run the joint fit
 + Format of command:
-    `./unified5 directory name 5`
+    `./unified5 directoryName 5`
     The directory name will be used in ./FitPlot/_*directory name*_/, then the final option _*5*_ will further specify the sub-directory, for saving plots, _*s_5*_ which corresponding to the number of slices.
     As summary, plots will be saved in ./FitPlot/_*directory name*_/_*s_5*_/, and ./Slices/_*directory name*_/_*s_5*_/.
     ps.Create all the necessary directories before you run program.
