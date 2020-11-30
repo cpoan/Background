@@ -1,4 +1,4 @@
-# Usage 
+# Usage (details are in Hsiao-Ru Pan(method inventor) thesis docdb-12008, or my thesis, docdb-12257.
 ## Preparing histograms
 
 For joint fit,  
